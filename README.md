@@ -8,5 +8,5 @@
 5. Build HospitalFinder project in Eclipse or Anroid Studio
 
 ## About the library folder
-It's a open source project for implementing tabs.
+It's an open source project for implementing tabs.
 See details in https://github.com/JakeWharton/ViewPagerIndicator
