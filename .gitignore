@@ -1,7 +1,7 @@
-HospitalFinder/bin/
+HospitalFinder/bin/*
 HospitalFinder/.classpath
 HospitalFinder/project.properties
-HospitalFinder/gen/
-library/bin/
-library/gen/
+HospitalFinder/gen/*
+library/bin/*
+library/gen/*
 library/.classpath
