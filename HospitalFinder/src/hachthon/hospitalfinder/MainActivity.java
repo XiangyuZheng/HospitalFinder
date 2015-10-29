@@ -11,26 +11,30 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+
 import com.viewpagerindicator.IconPagerAdapter;
 import com.viewpagerindicator.TabPageIndicator;
 
 public class MainActivity extends FragmentActivity implements
-        SearchView.OnQueryTextListener {
+        SearchView.OnQueryTextListener, OnPageChangeListener {
 
+    private static final String TAG = "MainActivity";
+    
     // TODO: Replace the tab names and icons with the real ones
-    private static final String[] CONTENT = new String[] { "Calendar",
-            "Camera", "Alarms", "Location" };
+    private static final String[] CONTENT = new String[] { "Map", "Filter",
+            "List", "History" };
 
-    private static final int[] ICONS = new int[] {
-            R.drawable.perm_group_calendar, R.drawable.perm_group_camera,
-            R.drawable.perm_group_device_alarms,
-            R.drawable.perm_group_location, };
+    private static final int[] ICONS = new int[] { R.drawable.tab_icon_map,
+            R.drawable.tab_icon_filter, R.drawable.tab_icon_list,
+            R.drawable.tab_icon_history };
 
     // Some fake data for hospitals
     private final String[] hospitals = { "Swedish Physicians",
@@ -38,9 +42,10 @@ public class MainActivity extends FragmentActivity implements
             "Swedish Medical Center", "Women's Health Care Center",
             "ZOOM Care Wallingford" };
 
-    private SearchView searchView;
     private ListView listView;
     private ArrayAdapter<String> listAdapter;
+    private SearchView searchView;
+    private ActionBar actionBar;
 
     @SuppressLint("InflateParams")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -59,9 +64,10 @@ public class MainActivity extends FragmentActivity implements
         TabPageIndicator indicator = (TabPageIndicator) findViewById(R.id.indicator);
         indicator.setTabIconLocation(TabPageIndicator.ICON_ONLY);
         indicator.setViewPager(pager);
+        indicator.setOnPageChangeListener(this);
 
         // inits action bar
-        ActionBar actionBar = getActionBar();
+        actionBar = getActionBar();
         LayoutInflater inflator = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.actionbar, null);
@@ -89,10 +95,18 @@ public class MainActivity extends FragmentActivity implements
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0) {
+            switch (position) {
+            case 0:
+                return new GoogleMapFragment();
+            case 1:
+                return new FilterFragment();
+            case 2:
+                return new HospitalListFragment();
+            case 3:
+                return new HospitalListFragment();
+            default:
                 return new GoogleMapFragment();
             }
-            return TestFragment.newInstance(CONTENT[position % CONTENT.length]);
         }
 
         @Override
@@ -120,4 +134,22 @@ public class MainActivity extends FragmentActivity implements
     public boolean onQueryTextSubmit(String arg0) {
         return false;
     }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        if (position == 0) {
+            searchView.setVisibility(View.VISIBLE);
+        } else {
+            searchView.setVisibility(View.INVISIBLE);
+        }
+    }
+
 }
