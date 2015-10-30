@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<color name="color_lightblue">#E0FFFF</color>
+    <color name="color_lightpink">#FFC0CB</color>
+    <color name="color_yellow">#FFFF00</color>
+    <color name="color_lightgreen">#DDA0DD</color>
+    <color name="color_lightblue2">#00FFFF</color>
+    <color name="color_lightgray">#D3D3D3</color>
+    <color name="color_back">#E0FFFE</color>
+    <color name="color_blue1">#012DFA</color>
+    <color name="color_black">#FFFFFF</color>
+    <color name="color_navy">#000080</color>
+    <color name="color_background">#ccf8ff</color>
+    
+</resources>

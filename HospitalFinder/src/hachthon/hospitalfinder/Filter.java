@@ -1,12 +1,10 @@
 package hachthon.hospitalfinder;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -15,18 +13,17 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Switch;
 import android.widget.TextView;
 
-public class FilterFragment extends Fragment {
+public class Filter extends Activity {
 
 	protected int fee;
 	protected int distance;
 	protected int rating;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-
-		View view = inflater.inflate(R.layout.filter, container, false);
-		Switch switchBtnOpen = (Switch) getView().findViewById(R.id.switch_OpenNow);
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.filter);
+		Switch switchBtnOpen = (Switch) findViewById(R.id.switch_OpenNow);
 		switchBtnOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {		
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -38,7 +35,7 @@ public class FilterFragment extends Fragment {
 			}
 		});
 
-		Switch switchBtnFeature = (Switch) getView().findViewById(R.id.switch_Feature);
+		Switch switchBtnFeature = (Switch) findViewById(R.id.switch_Feature);
 		switchBtnOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {		
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -50,16 +47,16 @@ public class FilterFragment extends Fragment {
 			}
 		});
 
-		SeekBar seek1 = (SeekBar) getView().findViewById(R.id.seekBar1);
+		SeekBar seek1 = (SeekBar) findViewById(R.id.seekBar1);
 
 		// text1 ~ text7 are number displayed on the screen for Consulting fee from 0 to 250 and No Limit.
-		final TextView text1 = (TextView) getView().findViewById(R.id.TextView2);
-		final TextView text2 = (TextView) getView().findViewById(R.id.TextView3);
-		final TextView text3 = (TextView) getView().findViewById(R.id.TextView4);
-		final TextView text4 = (TextView) getView().findViewById(R.id.TextView5);
-		final TextView text5 = (TextView) getView().findViewById(R.id.TextView6);
-		final TextView text6 = (TextView) getView().findViewById(R.id.TextView7);
-		final TextView text7 = (TextView) getView().findViewById(R.id.TextView8);
+		final TextView text1 = (TextView) findViewById(R.id.TextView2);
+		final TextView text2 = (TextView) findViewById(R.id.TextView3);
+		final TextView text3 = (TextView) findViewById(R.id.TextView4);
+		final TextView text4 = (TextView) findViewById(R.id.TextView5);
+		final TextView text5 = (TextView) findViewById(R.id.TextView6);
+		final TextView text6 = (TextView) findViewById(R.id.TextView7);
+		final TextView text7 = (TextView) findViewById(R.id.TextView8);
 		seek1.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
@@ -143,14 +140,14 @@ public class FilterFragment extends Fragment {
 		});
 
 		// text11 ~ text77 are the numbers displayed on the screen for distance from 0 to 25 and No Limit.
-		SeekBar seek2 = (SeekBar) getView().findViewById(R.id.seekBar2);
-		final TextView text11 = (TextView) getView().findViewById(R.id.TextView22);
-		final TextView text22 = (TextView) getView().findViewById(R.id.TextView33);
-		final TextView text33 = (TextView) getView().findViewById(R.id.TextView44);
-		final TextView text44 = (TextView) getView().findViewById(R.id.TextView55);
-		final TextView text55 = (TextView) getView().findViewById(R.id.TextView66);
-		final TextView text66 = (TextView) getView().findViewById(R.id.TextView77);
-		final TextView text77 = (TextView) getView().findViewById(R.id.TextView88);
+		SeekBar seek2 = (SeekBar) findViewById(R.id.seekBar2);
+		final TextView text11 = (TextView) findViewById(R.id.TextView22);
+		final TextView text22 = (TextView) findViewById(R.id.TextView33);
+		final TextView text33 = (TextView) findViewById(R.id.TextView44);
+		final TextView text44 = (TextView) findViewById(R.id.TextView55);
+		final TextView text55 = (TextView) findViewById(R.id.TextView66);
+		final TextView text66 = (TextView) findViewById(R.id.TextView77);
+		final TextView text77 = (TextView) findViewById(R.id.TextView88);
 		seek2.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
@@ -233,12 +230,12 @@ public class FilterFragment extends Fragment {
 		});
 
 		// text111 ~ text555 are the numbers displayed for Rating from 0 to 4
-		SeekBar seek3 = (SeekBar) getView().findViewById(R.id.seekBar3);
-		final TextView text111 = (TextView) getView().findViewById(R.id.TextView222);
-		final TextView text222 = (TextView) getView().findViewById(R.id.TextView333);
-		final TextView text333 = (TextView) getView().findViewById(R.id.TextView444);
-		final TextView text444 = (TextView) getView().findViewById(R.id.TextView555);
-		final TextView text555 = (TextView) getView().findViewById(R.id.TextView666);
+		SeekBar seek3 = (SeekBar) findViewById(R.id.seekBar3);
+		final TextView text111 = (TextView) findViewById(R.id.TextView222);
+		final TextView text222 = (TextView) findViewById(R.id.TextView333);
+		final TextView text333 = (TextView) findViewById(R.id.TextView444);
+		final TextView text444 = (TextView) findViewById(R.id.TextView555);
+		final TextView text555 = (TextView) findViewById(R.id.TextView666);
 		seek3.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			@Override
@@ -293,15 +290,15 @@ public class FilterFragment extends Fragment {
 		});
 
 		// Feature program buttons
-		Button obamaCare = (Button) getView().findViewById(R.id.obamaCare);
-		Button lowIncome = (Button) getView().findViewById(R.id.lowIncome);
-		Button charityProgram = (Button) getView().findViewById(R.id.charityProgram);
-		Button AAAProgram = (Button) getView().findViewById(R.id.AAAProgram);
-		Button BBBProgram = (Button) getView().findViewById(R.id.BBBProgram);
-		Button CCCProgram = (Button) getView().findViewById(R.id.CCCProgram);
-		Button DDDProgram = (Button) getView().findViewById(R.id.DDDProgram);
-		Button EEEProgram = (Button) getView().findViewById(R.id.EEEProgram);
-		Button FFFProgram = (Button) getView().findViewById(R.id.FFFProgram);
+		Button obamaCare = (Button) findViewById(R.id.obamaCare);
+		Button lowIncome = (Button) findViewById(R.id.lowIncome);
+		Button charityProgram = (Button) findViewById(R.id.charityProgram);
+		Button AAAProgram = (Button) findViewById(R.id.AAAProgram);
+		Button BBBProgram = (Button) findViewById(R.id.BBBProgram);
+		Button CCCProgram = (Button) findViewById(R.id.CCCProgram);
+		Button DDDProgram = (Button) findViewById(R.id.DDDProgram);
+		Button EEEProgram = (Button) findViewById(R.id.EEEProgram);
+		Button FFFProgram = (Button) findViewById(R.id.FFFProgram);
 
 		obamaCare.setOnClickListener(new View.OnClickListener() {
 			
@@ -369,17 +366,17 @@ public class FilterFragment extends Fragment {
 
 		
 		// Below navigate buttons
-		ImageView imageLocation = (ImageView) getView().findViewById(R.id.imageLocation);
-		ImageView imageFilter = (ImageView) getView().findViewById(R.id.imageFilter);
-		ImageView imageList = (ImageView) getView().findViewById(R.id.imageList);
-		ImageView imageWhat = (ImageView) getView().findViewById(R.id.imageWhat);
+		ImageView imageLocation = (ImageView) findViewById(R.id.imageLocation);
+		ImageView imageFilter = (ImageView) findViewById(R.id.imageFilter);
+		ImageView imageList = (ImageView) findViewById(R.id.imageList);
+		ImageView imageWhat = (ImageView) findViewById(R.id.imageWhat);
 		imageLocation.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-//				Intent intent = new Intent(Filter.this, MainActivity.class);
-//				finish();
-//				startActivity(intent);
+				Intent intent = new Intent(Filter.this, MainActivity.class);
+				finish();
+				startActivity(intent);
 			}
 		});
 		imageFilter.setOnClickListener(new View.OnClickListener() {
@@ -387,31 +384,30 @@ public class FilterFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-//				Intent intent =new Intent(Filter.this, Filter.class);
-//				finish();
-//				startActivity(intent);
+				Intent intent =new Intent(Filter.this, Filter.class);
+				finish();
+				startActivity(intent);
 			}
 		});
 		imageList.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-//				Intent intent =new Intent(Filter.this, List.class);
-//				finish();
-//				startActivity(intent);
+				Intent intent =new Intent(Filter.this, List.class);
+				finish();
+				startActivity(intent);
 			}
 		});
 		imageWhat.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-//				Intent intent = new Intent(Filter.this, HospitalDetail.class);
-//				finish();
-//				startActivity(intent);
+				Intent intent = new Intent(Filter.this, HospitalDetail.class);
+				finish();
+				startActivity(intent);
 			}
 		});
-		
-		return view;
-    }
+
+	}
 
 }
