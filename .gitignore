@@ -2,6 +2,8 @@ HospitalFinder/bin/*
 HospitalFinder/.classpath
 HospitalFinder/project.properties
 HospitalFinder/gen/*
+HospitalFinder/.DS_Store
 library/bin/*
 library/gen/*
 library/.classpath
+.DS_Store

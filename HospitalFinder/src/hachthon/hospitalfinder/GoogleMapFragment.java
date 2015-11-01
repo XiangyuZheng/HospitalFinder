@@ -1,3 +1,4 @@
+
 package hachthon.hospitalfinder;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,6 +15,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,8 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * GoogleMap fragment. It displays hospitals on Google Map. The code refers to
- * Google Map's official sample code.
+ * GoogleMap fragment. It displays hospitals on Google Map. The code refers to Google Map's official
+ * sample code.
  */
 @SuppressLint("InflateParams")
 public class GoogleMapFragment extends Fragment implements
@@ -309,6 +311,9 @@ public class GoogleMapFragment extends Fragment implements
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), HospitalDetailActivity.class);
+        getActivity().startActivity(intent);
     }
 
 }

@@ -1,3 +1,4 @@
+
 package hachthon.hospitalfinder;
 
 import android.annotation.SuppressLint;
@@ -13,9 +14,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -27,20 +29,26 @@ public class MainActivity extends FragmentActivity implements
         SearchView.OnQueryTextListener, OnPageChangeListener {
 
     private static final String TAG = "MainActivity";
-    
-    // TODO: Replace the tab names and icons with the real ones
-    private static final String[] CONTENT = new String[] { "Map", "Filter",
-            "List", "History" };
 
-    private static final int[] ICONS = new int[] { R.drawable.tab_icon_map,
+    // TODO: Replace the tab names and icons with the real ones
+    private static final String[] CONTENT = new String[] {
+            "Map", "Filter",
+            "List", "History"
+    };
+
+    private static final int[] ICONS = new int[] {
+            R.drawable.tab_icon_map,
             R.drawable.tab_icon_filter, R.drawable.tab_icon_list,
-            R.drawable.tab_icon_history };
+            R.drawable.tab_icon_history
+    };
 
     // Some fake data for hospitals
-    private final String[] hospitals = { "Swedish Physicians",
+    private final String[] hospitals = {
+            "Swedish Physicians",
             "University of Washington Medical Center",
             "Swedish Medical Center", "Women's Health Care Center",
-            "ZOOM Care Wallingford" };
+            "ZOOM Care Wallingford"
+    };
 
     private ListView listView;
     private ArrayAdapter<String> listAdapter;
@@ -59,6 +67,13 @@ public class MainActivity extends FragmentActivity implements
                 getSupportFragmentManager());
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
+        pager.setOnTouchListener(new OnTouchListener() {
+            
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 
         // inits page indicator
         TabPageIndicator indicator = (TabPageIndicator) findViewById(R.id.indicator);
@@ -96,16 +111,16 @@ public class MainActivity extends FragmentActivity implements
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-            case 0:
-                return new GoogleMapFragment();
-            case 1:
-                return new FilterFragment();
-            case 2:
-                return new HospitalListFragment();
-            case 3:
-                return new HospitalListFragment();
-            default:
-                return new GoogleMapFragment();
+                case 0:
+                    return new GoogleMapFragment();
+                case 1:
+                    return new FilterFragment();
+                case 2:
+                    return new HospitalListFragment();
+                case 3:
+                    return new HospitalListFragment();
+                default:
+                    return new GoogleMapFragment();
             }
         }
 
