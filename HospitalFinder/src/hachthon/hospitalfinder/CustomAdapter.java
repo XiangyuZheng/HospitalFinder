@@ -10,35 +10,23 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 public class CustomAdapter extends ArrayAdapter<String> {
- 
+
 	private final Activity context;
-	private final String[] itemname;
-	private final Integer[] imgid;
-	private final Integer[] review;
-	private final Double[] distance;
-	private final String[] address;
-	private final Integer[] price;
-	private final Integer[] time;
-	
-	
-	public CustomAdapter(Activity context, String[] itemname, Integer[] imgid, Integer[] review, Double[] distance, String[] address, Integer[] price, Integer[] time) {
-		super(context, R.layout.custom_listview, itemname);
+	private HospitalListInfo[] list;
+
+	public CustomAdapter(Activity context, HospitalListInfo[] list) {
+		//  EEE RRR RRR OOO RRR ???
+		super(context, R.layout.custom_listview, 0);
 		// TODO Auto-generated constructor stub
-		
-		this.context=context;
-		this.itemname=itemname;
-		this.imgid=imgid;
-		this.review=review;
-		this.distance=distance;
-		this.address=address;
-		this.price=price;
-		this.time=time;
+
+		this.context = context;
+		this.list = list;
 	}
-	
-	public View getView(int position,View view,ViewGroup parent) {
-		LayoutInflater inflater=context.getLayoutInflater();
-		View rowView=inflater.inflate(R.layout.custom_listview, null,true);
-		
+
+	public View getView(int position, View view, ViewGroup parent) {
+		LayoutInflater inflater = context.getLayoutInflater();
+		View rowView = inflater.inflate(R.layout.custom_listview, null, true);
+
 		TextView txtTitle = (TextView) rowView.findViewById(R.id.textView1);
 		ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView1);
 		RatingBar ratingBar = (RatingBar) rowView.findViewById(R.id.ratingBar1);
@@ -47,17 +35,15 @@ public class CustomAdapter extends ArrayAdapter<String> {
 		TextView address = (TextView) rowView.findViewById(R.id.address);
 		TextView price = (TextView) rowView.findViewById(R.id.price);
 		TextView time = (TextView) rowView.findViewById(R.id.time);
-		
-		txtTitle.setText(itemname[position]);
-		imageView.setImageResource(imgid[position]);
-		ratingBar.setTag(new Integer(position));
-		review.setText(this.review[position] + " Reviews");
-		distance.setText(this.distance[position] + "mi");
-		address.setText(this.address[position]);
-		price.setText("$" + this.price[position]);
-		time.setText("/ " +this.time[position] + "min");
 
+		txtTitle.setText(list[position].getHospitalName());
+		imageView.setImageDrawable(list[position].getImage());
+		ratingBar.setTag(new Integer(position));
+		review.setText(list[position].getReview() + " Reviews");
+		distance.setText(list[position].getDistance() + "mi");
+		address.setText(list[position].getAddress());
+		price.setText("$" + list[position].getPrice());
+		time.setText("/ " + list[position].getTime() + "min");
 		return rowView;
-		
 	};
 }

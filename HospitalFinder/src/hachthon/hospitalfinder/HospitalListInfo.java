@@ -25,9 +25,6 @@ public class HospitalListInfo {
 		this.time = time;
 	}
 
-	public String getHospitalName() {
-		return hospitalName;
-	}
 	
 	public static Drawable LoadImageFromWebOperations(String url) {
 	    try {
@@ -39,6 +36,13 @@ public class HospitalListInfo {
 	    }
 	}
 	
+	public String getHospitalName() {
+		return hospitalName;
+	}
+
+	public Drawable getImage() {
+		return link;
+	}
 	
 	public int getReview() {
 		return review;
