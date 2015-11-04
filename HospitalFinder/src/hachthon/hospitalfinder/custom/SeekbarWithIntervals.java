@@ -1,8 +1,6 @@
 
 package hachthon.hospitalfinder.custom;
 
-import hachthon.hospitalfinder.R;
-
 import java.util.List;
 
 import android.app.Activity;
@@ -16,6 +14,8 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import hachthon.hospitalfinder.R;
+import hachthon.hospitalfinder.custom.ViewId;
 
 public class SeekbarWithIntervals extends LinearLayout {
     private LinearLayout RelativeLayout = null;
@@ -148,7 +148,7 @@ public class SeekbarWithIntervals extends LinearLayout {
         TextView textView = (TextView) textBoxView
                 .findViewById(R.id.textViewInterval);
 
-        textView.setId(View.generateViewId());
+        textView.setId(ViewId.generateViewId());
         textView.setText(interval);
         textView.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT, 1f));
@@ -185,4 +185,5 @@ public class SeekbarWithIntervals extends LinearLayout {
 
         return Seekbar;
     }
+
 }

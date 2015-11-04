@@ -1,8 +1,6 @@
 
 package hachthon.hospitalfinder;
 
-import hachthon.hospitalfinder.custom.SeekbarWithIntervals;
-
 import java.util.ArrayList;
 
 import android.os.Bundle;
@@ -13,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import hachthon.hospitalfinder.custom.SeekbarWithIntervals;
 
 public class FilterFragment extends Fragment {
 

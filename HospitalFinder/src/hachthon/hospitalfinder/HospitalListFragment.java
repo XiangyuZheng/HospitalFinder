@@ -11,27 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
-
+import hachthon.hospitalfinder.HospitalListInfo;
 public class HospitalListFragment extends Fragment {
 
-    public static Integer[] image = { R.drawable.seattlechil,
-            R.drawable.harborview, R.drawable.kindred, R.drawable.northwest,
-            R.drawable.uwmedical };
-    public static String[] hospitalList = { "Seattle Children's Hospital",
-            "Harborview Medical Center",
-            "Kindred Hospital Seattle - Northgate",
-            "Northwest Hospital Midwives Clinic",
-            "UW Medical Center at Roosevelt" };
-    public static Integer[] review = { 65, 21, 36, 12, 42 };
-    public static Double[] distance = { 1.6, 2.7, 3.5, 3.6, 6.2 };
-    public static String[] address = {
-            "4800 Sand Pt way NE, Seattle, WA 98105",
-            "325 9th Ave, Seattle, WA 98104",
-            "10631 8th Ave NE, Seattle, WA 98125",
-            "10330 Meridian Ave NS 190, Seattle, WA 98133",
-            "4245 Roosevelt Way NE, Seattle, WA 98105" };
-    public static Integer[] price = { 40, 60, 35, 80, 100 };
-    public static Integer[] time = { 20, 30, 30, 40, 45 };
+	HospitalListInfo a1 = new HospitalListInfo("Seattle Children's Hospital", "http://www.kinzer.com/wp-content/uploads/2014/12/Seattle_childrens-logo.png", 65, 1.6, "4800 Sand Pt way NE, Seattle, WA 98105", 40, 20);
+	HospitalListInfo a2 = new HospitalListInfo("Harborview Medical Center", "https://upload.wikimedia.org/wikipedia/en/8/88/HarborviewMC_Logo.png", 21, 2.7, "325 9th Ave, Seattle, WA 98104", 60, 30);
+	HospitalListInfo a3 = new HospitalListInfo("Kindred Hospital Seattle - Northgate", "http://www.kindredhospitalseattle.com/uploadedImages/_Global_Content/Facilities_-_Hospital/Patients_and_Families/Articles/KH_ClearLake_FrontExt2_300.jpg", 36, 3.5, "10631 8th Ave NE, Seattle, WA 98125", 35, 30);
+	HospitalListInfo a4 = new HospitalListInfo("Northwest Hospital Midwives Clinic", "http://www.nwmidwivesclinic.com/midwives/images/hp_photo_1.jpg", 12, 3.6, "10330 Meridian Ave NS 190, Seattle, WA 98133", 80, 40);
+	HospitalListInfo a5 = new HospitalListInfo("UW Medical Center at Roosevelt", "http://www.uwmedicine.org/locations/pediatric-care-center-uwmc-roosevelt/PublishingImages/splash3.jpg", 42, 6.2, "4245 Roosevelt Way NE, Seattle, WA 98105", 100, 45);
+	HospitalListInfo[] list = {a1, a2, a3, a4, a5};
 
     private ListView listView;
 
@@ -64,8 +52,7 @@ public class HospitalListFragment extends Fragment {
         });
 
         listView = (ListView) view.findViewById(R.id.listView);
-        listView.setAdapter(new CustomAdapter(getActivity(), hospitalList, image,
-                review, distance, address, price, time));
+        listView.setAdapter(new CustomAdapter(getActivity(), list));
         return view;
 
     }
