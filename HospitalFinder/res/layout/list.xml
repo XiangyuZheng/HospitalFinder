@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <Button
+        <ButtonCustom
             android:id="@+id/sort"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -20,8 +20,8 @@
             android:background="@android:color/white"
             android:gravity="center"
             android:text="Sort by"
-            android:textColor="@android:color/background_dark"
-            android:textSize="16sp" />
+            android:textColor="#000000"
+            android:textSize="14sp" />
 
         <View
             android:layout_width="1dp"
@@ -30,7 +30,7 @@
             android:layout_marginTop="5dp"
             android:background="@android:color/darker_gray" />
 
-        <Button
+        <ButtonCustom
             android:id="@+id/priceSort"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:layout_marginTop="5dp"
             android:background="@android:color/darker_gray" />
 
-        <Button
+        <ButtonCustom
             android:id="@+id/distanceSort"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_marginTop="5dp"
             android:background="@android:color/darker_gray" />
 
-        <Button
+        <ButtonCustom
             android:id="@+id/ratingSort"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style name="button" parent="@android:style/Widget.Button">
+    <item name="hachthon.hospitalfinder.helperMethod:font">fonts/avenir-light.ttf</item>
+</style></resources>
