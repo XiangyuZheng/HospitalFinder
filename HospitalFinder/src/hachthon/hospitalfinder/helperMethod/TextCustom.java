@@ -2,20 +2,20 @@ package hachthon.hospitalfinder.helperMethod;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.Button;
+import android.widget.TextView;
 
-public class ButtonCustom extends Button {
+public class TextCustom extends TextView {
 
-	public ButtonCustom(Context context) {
+	public TextCustom(Context context) {
         super(context);
     }
 
-    public ButtonCustom(Context context, AttributeSet attrs) {
+    public TextCustom(Context context, AttributeSet attrs) {
         super(context, attrs);
         CustomFontHelper.setCustomFont(this, context, attrs);
     }
 
-    public ButtonCustom(Context context, AttributeSet attrs, int defStyle) {
+    public TextCustom(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         CustomFontHelper.setCustomFont(this, context, attrs);
     }

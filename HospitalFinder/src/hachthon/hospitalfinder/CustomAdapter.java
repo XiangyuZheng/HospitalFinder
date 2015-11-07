@@ -40,7 +40,7 @@ public class CustomAdapter extends ArrayAdapter<HospitalListInfo> {
 		LayoutInflater inflater = context.getLayoutInflater();
 		View rowView = inflater.inflate(R.layout.custom_listview, null, true);
 
-		viewHolder.textView = (TextView) rowView.findViewById(R.id.textView1);
+		viewHolder.textView = (TextView) rowView.findViewById(R.id.hospitalName);
 		viewHolder.imageView = (ImageView) rowView.findViewById(R.id.imageView1);
 		viewHolder.ratingBar = (RatingBar) rowView.findViewById(R.id.ratingBar1);
 		viewHolder.review = (TextView) rowView.findViewById(R.id.rating);

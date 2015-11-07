@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <ButtonCustom
+        <hachthon.hospitalfinder.helperMethod.ButtonCustom
+            style="@style/button"
             android:id="@+id/sort"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -30,7 +31,8 @@
             android:layout_marginTop="5dp"
             android:background="@android:color/darker_gray" />
 
-        <ButtonCustom
+        <hachthon.hospitalfinder.helperMethod.ButtonCustom
+            style="@style/button"
             android:id="@+id/priceSort"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -38,7 +40,7 @@
             android:background="@android:color/white"
             android:gravity="center"
             android:text="Price"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="#979797"
             android:textSize="16sp" />
 
         <View
@@ -48,7 +50,8 @@
             android:layout_marginTop="5dp"
             android:background="@android:color/darker_gray" />
 
-        <ButtonCustom
+        <hachthon.hospitalfinder.helperMethod.ButtonCustom
+            style="@style/button"
             android:id="@+id/distanceSort"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -56,7 +59,7 @@
             android:background="@android:color/white"
             android:gravity="center"
             android:text="Distance"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="#979797"
             android:textSize="16sp" />
 
         <View
@@ -66,7 +69,8 @@
             android:layout_marginTop="5dp"
             android:background="@android:color/darker_gray" />
 
-        <ButtonCustom
+        <hachthon.hospitalfinder.helperMethod.ButtonCustom
+            style="@style/button"
             android:id="@+id/ratingSort"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -74,7 +78,7 @@
             android:background="@android:color/white"
             android:gravity="center"
             android:text="Rating"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="#979797"
             android:textSize="16sp" />
     </LinearLayout>
 

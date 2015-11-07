@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<style name="button" parent="@android:style/Widget.Button">
-    <item name="hachthon.hospitalfinder.helperMethod:font">fonts/avenir-light.ttf</item>
-</style></resources>
+<style name="AppTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <!-- set the height of Action Bar . -->
+        <item name="android:actionBarSize">48dip</item>
+    </style>
+    
+    <style name="button" parent="@android:style/Widget.Button">
+        <item name="hachthon.hospitalfinder:font">fonts/avenir-light.TTF</item>
+    </style>
+
+    <style name="textArialMT" parent="@android:style/Widget.TextView">
+        <item name="hachthon.hospitalfinder:font">fonts/arialmt.TTF</item>
+    </style>
+
+    <style name="textAvenir" parent="@android:style/Widget.TextView">
+        <item name="hachthon.hospitalfinder:font">fonts/avenir-light.TTF</item>
+    </style>
+
+</resources>

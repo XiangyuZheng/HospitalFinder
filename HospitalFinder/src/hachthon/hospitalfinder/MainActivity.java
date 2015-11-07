@@ -1,6 +1,9 @@
 
 package hachthon.hospitalfinder;
 
+import com.viewpagerindicator.IconPagerAdapter;
+import com.viewpagerindicator.TabPageIndicator;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -14,16 +17,17 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
-
-import com.viewpagerindicator.IconPagerAdapter;
-import com.viewpagerindicator.TabPageIndicator;
 
 public class MainActivity extends FragmentActivity implements
         SearchView.OnQueryTextListener, OnPageChangeListener {
@@ -37,9 +41,9 @@ public class MainActivity extends FragmentActivity implements
     };
 
     private static final int[] ICONS = new int[] {
-            R.drawable.tab_icon_map,
-            R.drawable.tab_icon_filter, R.drawable.tab_icon_list,
-            R.drawable.tab_icon_history
+            R.drawable.btn_map,
+            R.drawable.btn_filter, R.drawable.btn_bookmark,
+            R.drawable.btn_emergency
     };
 
     // Some fake data for hospitals
@@ -54,7 +58,7 @@ public class MainActivity extends FragmentActivity implements
     private ArrayAdapter<String> listAdapter;
     private SearchView searchView;
     private ActionBar actionBar;
-
+    private ImageView imageView;
     @SuppressLint("InflateParams")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -93,7 +97,14 @@ public class MainActivity extends FragmentActivity implements
         searchView = (SearchView) findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint("Search for hospitals and clinics");
-
+        LinearLayout linearLayout1 = (LinearLayout) searchView.getChildAt(0);
+        LinearLayout linearLayout2 = (LinearLayout) linearLayout1.getChildAt(2);
+        LinearLayout linearLayout3 = (LinearLayout) linearLayout2.getChildAt(1);
+        AutoCompleteTextView autoComplete = (AutoCompleteTextView) linearLayout3.getChildAt(0);
+        autoComplete.setTextSize(12);
+        // inits image top right corner
+        imageView = (ImageView) findViewById(R.id.location);
+        
         // inits list view
         listView = (ListView) findViewById(R.id.list_view);
         listAdapter = new ArrayAdapter<String>(this, R.layout.filter_item,
@@ -126,7 +137,7 @@ public class MainActivity extends FragmentActivity implements
 
         @Override
         public int getIconResId(int index) {
-            return ICONS[index];
+        	return ICONS[index];
         }
 
         @Override
@@ -162,8 +173,10 @@ public class MainActivity extends FragmentActivity implements
     public void onPageSelected(int position) {
         if (position == 0) {
             searchView.setVisibility(View.VISIBLE);
+            imageView.setImageResource(R.drawable.btn_search);
         } else {
-            searchView.setVisibility(View.INVISIBLE);
+            searchView.setVisibility(View.VISIBLE);
+            imageView.setImageResource(R.drawable.btn_location_normal);
         }
     }
 

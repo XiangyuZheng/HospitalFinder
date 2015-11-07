@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="fill_horizontal"
-    android:background="#99CCFF"
+    android:background="#B5E2DE"
     android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/menu"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:padding="12dp"
+        android:src="@drawable/btn_menu" />
 
     <SearchView
         android:id="@+id/search_view"
-        android:iconifiedByDefault="false"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_toLeftOf="@+id/location"
+        android:layout_toRightOf="@+id/menu"
+        android:background="@drawable/shape"
+        android:iconifiedByDefault="true" />
+
+    <ImageView
+        android:id="@+id/location"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:padding="12dp"
+        android:src="@drawable/btn_search" />
 
 </RelativeLayout>

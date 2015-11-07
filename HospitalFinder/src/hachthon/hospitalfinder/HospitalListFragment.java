@@ -1,5 +1,6 @@
 package hachthon.hospitalfinder;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import hachthon.hospitalfinder.helperMethod.ButtonCustom;
 public class HospitalListFragment extends Fragment {
 
 	HospitalListInfo a1 = new HospitalListInfo("Seattle Children's Hospital", "http://www.kinzer.com/wp-content/uploads/2014/12/Seattle_childrens-logo.png", 65, 1.6, "4800 Sand Pt way NE, Seattle, WA 98105", 40, 20);
@@ -24,30 +24,34 @@ public class HospitalListFragment extends Fragment {
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list, container, false);
         
-        Button sort = (Button) view.findViewById(R.id.sort);
-        ButtonCustom sort2 = (ButtonCustom) view.findViewById(R.id.sort);
-        
-        Button priceSort = (Button) view.findViewById(R.id.priceSort);
+        final Button priceSort = (Button) view.findViewById(R.id.priceSort);
+        final Button distanceSort = (Button) view.findViewById(R.id.distanceSort);
+        final Button ratingSort = (Button) view.findViewById(R.id.ratingSort);
+
         priceSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Algorithms here
+            	priceSort.setTextColor(Color.parseColor("#000000"));
+            	distanceSort.setTextColor(Color.parseColor("#979797"));
+            	ratingSort.setTextColor(Color.parseColor("#979797"));
             }
         });
 
-        Button distanceSort = (Button) view.findViewById(R.id.distanceSort);
         distanceSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Algorithms here
+            	priceSort.setTextColor(Color.parseColor("#979797"));
+            	distanceSort.setTextColor(Color.parseColor("#000000"));
+            	ratingSort.setTextColor(Color.parseColor("#979797"));
             }
         });
 
-        Button ratingSort = (Button) view.findViewById(R.id.ratingSort);
         ratingSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Algorithms here
+            	priceSort.setTextColor(Color.parseColor("#979797"));
+            	distanceSort.setTextColor(Color.parseColor("#979797"));
+            	ratingSort.setTextColor(Color.parseColor("#000000"));
             }
         });
 
