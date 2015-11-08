@@ -7,9 +7,11 @@
     <com.viewpagerindicator.TabPageIndicator
         android:id="@+id/indicator"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#99CCFF" />
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="#B5E2DE" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"

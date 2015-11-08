@@ -13,12 +13,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -39,7 +42,7 @@ public class MainActivity extends FragmentActivity implements
     private static final int[] ICONS = new int[] {
             R.drawable.tab_icon_map,
             R.drawable.tab_icon_filter, R.drawable.tab_icon_list,
-            R.drawable.tab_icon_history
+            R.drawable.tab_icon_emergency
     };
 
     // Some fake data for hospitals
@@ -52,7 +55,7 @@ public class MainActivity extends FragmentActivity implements
 
     private ListView listView;
     private ArrayAdapter<String> listAdapter;
-    private SearchView searchView;
+    private EditText editSearch;
     private ActionBar actionBar;
 
     @SuppressLint("InflateParams")
@@ -90,9 +93,26 @@ public class MainActivity extends FragmentActivity implements
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
         // inits search view
-        searchView = (SearchView) findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint("Search for hospitals and clinics");
+        editSearch = (EditText) findViewById(R.id.search_bar);
+        editSearch.addTextChangedListener(new TextWatcher() {
+            
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s.toString())) {
+                    listAdapter.getFilter().filter("aaaaaaa");
+                } else {
+                    listAdapter.getFilter().filter(s.toString());
+                }
+            }
+        });
 
         // inits list view
         listView = (ListView) findViewById(R.id.list_view);
@@ -160,11 +180,11 @@ public class MainActivity extends FragmentActivity implements
 
     @Override
     public void onPageSelected(int position) {
-        if (position == 0) {
-            searchView.setVisibility(View.VISIBLE);
-        } else {
-            searchView.setVisibility(View.INVISIBLE);
-        }
+//        if (position == 0) {
+//            searchView.setVisibility(View.VISIBLE);
+//        } else {
+//            searchView.setVisibility(View.INVISIBLE);
+//        }
     }
 
 }

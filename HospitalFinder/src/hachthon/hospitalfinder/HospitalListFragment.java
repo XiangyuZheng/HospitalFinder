@@ -52,7 +52,7 @@ public class HospitalListFragment extends Fragment {
         });
 
         listView = (ListView) view.findViewById(R.id.listView);
-        listView.setAdapter(new CustomAdapter(getActivity(), list));
+//        listView.setAdapter(new CustomAdapter(getActivity(), list));
         return view;
 
     }

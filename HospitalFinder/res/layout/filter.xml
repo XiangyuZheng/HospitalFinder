@@ -136,7 +136,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
             android:padding="10dp" >
 
             <TextView
@@ -155,100 +154,16 @@
                 android:textOn="All" />
         </RelativeLayout>
 
-        <TableLayout
+        <hachthon.hospitalfinder.custom.ExtendedGridView
+            android:id="@+id/gridview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TableRow
-                android:id="@+id/tableRow1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:id="@+id/obamaCare"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Obama Care"
-                    android:textSize="13sp" />
-
-                <Button
-                    android:id="@+id/lowIncome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Low Income"
-                    android:textSize="13sp" />
-
-                <Button
-                    android:id="@+id/charityProgram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Charity Program"
-                    android:textSize="13sp" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:id="@+id/AAAProgram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="AAA Program"
-                    android:textSize="13sp" />
-
-                <Button
-                    android:id="@+id/BBBProgram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="BBB Program"
-                    android:textSize="13sp" />
-
-                <Button
-                    android:id="@+id/CCCProgram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="CCC Program"
-                    android:textSize="13sp" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:id="@+id/DDDProgram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="DDD Program"
-                    android:textSize="13sp" />
-
-                <Button
-                    android:id="@+id/EEEProgram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="EEE Program"
-                    android:textSize="13sp" />
-
-                <Button
-                    android:id="@+id/FFFProgram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="FFF Program"
-                    android:textSize="13sp" />
-            </TableRow>
-        </TableLayout>
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:horizontalSpacing="1dp"
+            android:numColumns="3"
+            android:layout_margin="10dp"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="1dp" />
     </LinearLayout>
 
 </ScrollView>
