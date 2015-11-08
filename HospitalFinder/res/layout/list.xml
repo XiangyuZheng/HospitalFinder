@@ -3,23 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#ffffff"
     tools:context="${relativePackage}.${activityClass}" >
 
     <LinearLayout
         android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="47.5dp"
         android:orientation="horizontal" >
 
         <hachthon.hospitalfinder.helperMethod.ButtonCustom
-            style="@style/button"
             android:id="@+id/sort"
+            style="@style/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:background="@android:color/white"
-            android:gravity="center"
             android:text="Sort by"
             android:textColor="#000000"
             android:textSize="14sp" />
@@ -27,13 +27,13 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:background="@android:color/darker_gray" />
 
         <hachthon.hospitalfinder.helperMethod.ButtonCustom
-            style="@style/button"
             android:id="@+id/priceSort"
+            style="@style/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -46,13 +46,13 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:background="@android:color/darker_gray" />
 
         <hachthon.hospitalfinder.helperMethod.ButtonCustom
-            style="@style/button"
             android:id="@+id/distanceSort"
+            style="@style/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -65,13 +65,13 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:background="@android:color/darker_gray" />
 
         <hachthon.hospitalfinder.helperMethod.ButtonCustom
-            style="@style/button"
             android:id="@+id/ratingSort"
+            style="@style/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -94,8 +94,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/divider"
-        android:dividerHeight="1dp"
-        android:divider="@android:color/darker_gray" >
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" >
     </ListView>
 
 </RelativeLayout>
