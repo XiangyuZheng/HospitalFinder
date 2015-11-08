@@ -3,78 +3,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#ffffff"
     tools:context="${relativePackage}.${activityClass}" >
 
     <LinearLayout
         android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="47.5dp"
         android:orientation="horizontal" >
 
-        <Button
+        <hachthon.hospitalfinder.helperMethod.ButtonCustom
             android:id="@+id/sort"
+            style="@style/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:background="@android:color/white"
-            android:gravity="center"
             android:text="Sort by"
-            android:textColor="@android:color/background_dark"
-            android:textSize="16sp" />
+            android:textColor="#000000"
+            android:textSize="14sp" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:background="@android:color/darker_gray" />
 
-        <Button
+        <hachthon.hospitalfinder.helperMethod.ButtonCustom
             android:id="@+id/priceSort"
+            style="@style/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/white"
             android:gravity="center"
             android:text="Price"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="#979797"
             android:textSize="16sp" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:background="@android:color/darker_gray" />
 
-        <Button
+        <hachthon.hospitalfinder.helperMethod.ButtonCustom
             android:id="@+id/distanceSort"
+            style="@style/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/white"
             android:gravity="center"
             android:text="Distance"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="#979797"
             android:textSize="16sp" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:background="@android:color/darker_gray" />
 
-        <Button
+        <hachthon.hospitalfinder.helperMethod.ButtonCustom
             android:id="@+id/ratingSort"
+            style="@style/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/white"
             android:gravity="center"
             android:text="Rating"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="#979797"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -90,8 +94,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/divider"
-        android:dividerHeight="1dp"
-        android:divider="@android:color/darker_gray" >
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" >
     </ListView>
 
 </RelativeLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style name="AppTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <!-- set the height of Action Bar . -->
+        <item name="android:actionBarSize">48dip</item>
+    </style>
+    
+    <style name="button" parent="@android:style/Widget.Button">
+        <item name="hachthon.hospitalfinder:font">fonts/avenir-light.TTF</item>
+    </style>
+
+    <style name="textArialMT" parent="@android:style/Widget.TextView">
+        <item name="hachthon.hospitalfinder:font">fonts/arialmt.TTF</item>
+    </style>
+
+    <style name="textAvenir" parent="@android:style/Widget.TextView">
+        <item name="hachthon.hospitalfinder:font">fonts/avenir-light.TTF</item>
+    </style>
+    
+    <style name="customRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/btn_star</item>
+        <item name="android:minHeight">9dip</item>
+        <item name="android:maxHeight">9dip</item>
+    </style>
+
+</resources>

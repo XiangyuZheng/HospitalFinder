@@ -5,23 +5,36 @@
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
+        android:layout_width="121dp"
+        android:layout_height="91.5dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="1.5dp"
+        android:layout_marginRight="1.5dp"
+        android:layout_marginTop="1dp"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_launcher" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView1"
+        <hachthon.hospitalfinder.helperMethod.TextCustom
+            android:id="@+id/hospitalName"
+            style="@style/textArialMT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text=""
-            android:textSize="15dp" />
+            android:layout_marginLeft="10.5dp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -30,64 +43,111 @@
 
             <RatingBar
                 android:id="@+id/ratingBar1"
-                style="?android:attr/ratingBarStyleSmall"
+                style="@style/customRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="10.5dp"
+                android:layout_marginRight="3.5dp"
+                android:layout_marginTop="3dp"
                 android:numStars="5"
                 android:rating="5"
-                android:stepSize="1" />
+                android:stepSize="0.5" />
 
-            <TextView
+            <hachthon.hospitalfinder.helperMethod.TextCustom
                 android:id="@+id/rating"
+                style="@style/textAvenir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="test"
-                android:textColor="#9e9e9e"
-                android:textSize="13dp" />
+                android:textColor="#979797"
+                android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/distance"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="40dp"
-                android:text="1.6mi"
-                android:textColor="#000000"
-                android:textSize="13dp" />
+                android:orientation="horizontal" >
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <hachthon.hospitalfinder.helperMethod.TextCustom
+                    android:id="@+id/distance"
+                    style="@style/textAvenir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15.5dp"
+                    android:textColor="#000000"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text=""
-            android:textColor="#000000"
-            android:textSize="13dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text=""
-                android:textColor="#04bd53"
-                android:textSize="25dp" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/time"
+            <hachthon.hospitalfinder.helperMethod.TextCustom
+                android:id="@+id/price"
+                style="@style/textAvenir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text=""
+                android:textColor="#068270"
+                android:textSize="24sp" />
+
+            <hachthon.hospitalfinder.helperMethod.TextCustom
+                style="@style/textAvenir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15.5dp"
+                android:text="/"
                 android:textColor="#000000"
-                android:textSize="13dp" />
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <hachthon.hospitalfinder.helperMethod.TextCustom
+                android:id="@+id/address"
+                style="@style/textAvenir"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.5dp"
+                android:ellipsize="end"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textSize="10sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <hachthon.hospitalfinder.helperMethod.TextCustom
+                    android:id="@+id/time"
+                    style="@style/textAvenir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10.5dp"
+                    android:layout_marginRight="15.5dp"
+                    android:textColor="#979797"
+                    android:layout_gravity="center"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

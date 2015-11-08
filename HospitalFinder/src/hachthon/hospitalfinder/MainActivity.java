@@ -1,6 +1,9 @@
 
 package hachthon.hospitalfinder;
 
+import com.viewpagerindicator.IconPagerAdapter;
+import com.viewpagerindicator.TabPageIndicator;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -22,11 +25,10 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
-
-import com.viewpagerindicator.IconPagerAdapter;
-import com.viewpagerindicator.TabPageIndicator;
 
 public class MainActivity extends FragmentActivity implements
         SearchView.OnQueryTextListener, OnPageChangeListener {
@@ -40,8 +42,8 @@ public class MainActivity extends FragmentActivity implements
     };
 
     private static final int[] ICONS = new int[] {
-            R.drawable.tab_icon_map,
-            R.drawable.tab_icon_filter, R.drawable.tab_icon_list,
+            R.drawable.btn_map,
+            R.drawable.btn_filter, R.drawable.btn_bookmark,
             R.drawable.tab_icon_emergency
     };
 
@@ -57,7 +59,7 @@ public class MainActivity extends FragmentActivity implements
     private ArrayAdapter<String> listAdapter;
     private EditText editSearch;
     private ActionBar actionBar;
-
+    private ImageView imageView;
     @SuppressLint("InflateParams")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -113,7 +115,7 @@ public class MainActivity extends FragmentActivity implements
                 }
             }
         });
-
+        
         // inits list view
         listView = (ListView) findViewById(R.id.list_view);
         listAdapter = new ArrayAdapter<String>(this, R.layout.filter_item,
@@ -146,7 +148,7 @@ public class MainActivity extends FragmentActivity implements
 
         @Override
         public int getIconResId(int index) {
-            return ICONS[index];
+        	return ICONS[index];
         }
 
         @Override
@@ -185,6 +187,7 @@ public class MainActivity extends FragmentActivity implements
 //        } else {
 //            searchView.setVisibility(View.INVISIBLE);
 //        }
+            imageView.setImageResource(R.drawable.btn_location_normal);
     }
 
 }

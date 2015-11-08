@@ -9,8 +9,9 @@
     <color name="color_lightgray">#D3D3D3</color>
     <color name="color_back">#E0FFFE</color>
     <color name="color_blue1">#012DFA</color>
-    <color name="color_black">#FFFFFF</color>
     <color name="color_navy">#000080</color>
     <color name="color_background">#ccf8ff</color>
+    <color name="black">#000000</color>
+    <color name="gray">#979797</color>
     
 </resources>
