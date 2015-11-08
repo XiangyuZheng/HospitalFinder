@@ -18,15 +18,23 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Editable;
 import android.text.TextUtils;
+<<<<<<< HEAD
 import android.text.TextWatcher;
+=======
+import android.util.TypedValue;
+>>>>>>> 94951b6151e2f5d8cb64f0a179edcf09b417956b
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ArrayAdapter;
+<<<<<<< HEAD
 import android.widget.EditText;
+=======
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+>>>>>>> 94951b6151e2f5d8cb64f0a179edcf09b417956b
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -38,13 +46,19 @@ public class MainActivity extends FragmentActivity implements
     // TODO: Replace the tab names and icons with the real ones
     private static final String[] CONTENT = new String[] {
             "Map", "Filter",
-            "List", "Emergency"
+            "List", "History"
     };
 
     private static final int[] ICONS = new int[] {
+<<<<<<< HEAD
+            R.drawable.tab_icon_map,
+            R.drawable.tab_icon_filter, R.drawable.tab_icon_list,
+            R.drawable.tab_icon_emergency
+=======
             R.drawable.btn_map,
             R.drawable.btn_filter, R.drawable.btn_bookmark,
-            R.drawable.tab_icon_emergency
+            R.drawable.btn_emergency
+>>>>>>> 94951b6151e2f5d8cb64f0a179edcf09b417956b
     };
 
     // Some fake data for hospitals
@@ -59,6 +73,7 @@ public class MainActivity extends FragmentActivity implements
     private ArrayAdapter<String> listAdapter;
     private EditText editSearch;
     private ActionBar actionBar;
+    private ImageView imageView;
     @SuppressLint("InflateParams")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -94,6 +109,7 @@ public class MainActivity extends FragmentActivity implements
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
         // inits search view
+<<<<<<< HEAD
         editSearch = (EditText) findViewById(R.id.search_bar);
         editSearch.addTextChangedListener(new TextWatcher() {
             
@@ -114,7 +130,20 @@ public class MainActivity extends FragmentActivity implements
                 }
             }
         });
+
+=======
+        searchView = (SearchView) findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint("Search for hospitals and clinics");
+        LinearLayout linearLayout1 = (LinearLayout) searchView.getChildAt(0);
+        LinearLayout linearLayout2 = (LinearLayout) linearLayout1.getChildAt(2);
+        LinearLayout linearLayout3 = (LinearLayout) linearLayout2.getChildAt(1);
+        AutoCompleteTextView autoComplete = (AutoCompleteTextView) linearLayout3.getChildAt(0);
+        autoComplete.setTextSize(12);
+        // inits image top right corner
+        imageView = (ImageView) findViewById(R.id.location);
         
+>>>>>>> 94951b6151e2f5d8cb64f0a179edcf09b417956b
         // inits list view
         listView = (ListView) findViewById(R.id.list_view);
         listAdapter = new ArrayAdapter<String>(this, R.layout.filter_item,
@@ -181,11 +210,21 @@ public class MainActivity extends FragmentActivity implements
 
     @Override
     public void onPageSelected(int position) {
+<<<<<<< HEAD
 //        if (position == 0) {
 //            searchView.setVisibility(View.VISIBLE);
 //        } else {
 //            searchView.setVisibility(View.INVISIBLE);
 //        }
+=======
+        if (position == 0) {
+            searchView.setVisibility(View.VISIBLE);
+            imageView.setImageResource(R.drawable.btn_search);
+        } else {
+            searchView.setVisibility(View.VISIBLE);
+            imageView.setImageResource(R.drawable.btn_location_normal);
+        }
+>>>>>>> 94951b6151e2f5d8cb64f0a179edcf09b417956b
     }
 
 }
