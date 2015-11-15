@@ -20,8 +20,9 @@ public class HospitalListInfo {
 	private int price;
 	private int time;
 	private String link;
-
-	public HospitalListInfo(String hospitalName, String link, int review, double distance, String address, int price, int time) {
+	private int ratingStar;
+	
+	public HospitalListInfo(String hospitalName, String link, int review, double distance, String address, int price, int time, int ratingStar) {
 		this.hospitalName = hospitalName;
 		this.link = link;
 		this.review = review;
@@ -29,6 +30,7 @@ public class HospitalListInfo {
 		this.address = address;
 		this.price = price;
 		this.time = time;
+		this.ratingStar = ratingStar;
 	}
 
 	public String getHospitalName() {
@@ -57,5 +59,9 @@ public class HospitalListInfo {
 
 	public int getTime() {
 		return time;
+	}
+
+	public int getRatingStar() {
+		return ratingStar;
 	}
 }

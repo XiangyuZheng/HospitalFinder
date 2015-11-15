@@ -25,15 +25,14 @@
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB7N5ssprqlymNyvrKy6XMMQ9h_SNr" />
+            android:value="AIzaSyB7N5ssprqlymNyvrKy6XMMQ9h_SNr-GDo" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".MainActivity"
-            android:label="HospitalFinder"
-            android:windowSoftInputMode="stateHidden|adjustPan" >
+            android:label="HospitalFinder" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

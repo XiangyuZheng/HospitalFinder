@@ -4,6 +4,5 @@
     android:id="@+id/textViewInterval"
     android:textSize="12sp"
     android:gravity="center"
-    android:textColor="@android:color/darker_gray"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />

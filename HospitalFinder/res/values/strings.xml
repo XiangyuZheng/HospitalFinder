@@ -1,14 +1,5 @@
 <resources>
 
     <string name="app_name">HospitalFinder</string>
-    <string name="obama_care">Obama Care</string>
-    <string name="low_income">Low Income</string>
-    <string name="charity_program">Charity Program</string>
-    <string name="AAA_program">AAA Program</string>
-    <string name="BBB_program">BBB Program</string>
-    <string name="CCC_program">CCC Program</string>
-    <string name="DDD_program">DDD Program</string>
-    <string name="EEE_program">EEE Program</string>
-    <string name="FFF_program">FFF Program</string>
 
 </resources>

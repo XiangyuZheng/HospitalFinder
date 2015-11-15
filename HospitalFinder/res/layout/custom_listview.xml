@@ -12,6 +12,7 @@
         android:layout_marginRight="1.5dp"
         android:layout_marginTop="1dp"
         android:scaleType="fitXY"
+        android:layout_gravity="center"
         android:src="@drawable/ic_launcher" />
 
     <View
@@ -49,7 +50,7 @@
                 android:layout_marginLeft="10.5dp"
                 android:layout_marginRight="3.5dp"
                 android:layout_marginTop="3dp"
-                android:numStars="5"
+                android:numStars="3"
                 android:rating="5"
                 android:stepSize="0.5" />
 

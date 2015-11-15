@@ -3,22 +3,13 @@ package hachthon.hospitalfinder;
 
 import java.util.ArrayList;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.webkit.WebView.FindListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.GridView;
 import android.widget.Switch;
 import hachthon.hospitalfinder.custom.SeekbarWithIntervals;
 
@@ -27,8 +18,6 @@ public class FilterFragment extends Fragment {
     private SeekbarWithIntervals seekbarFee;
     private SeekbarWithIntervals seekbarDistance;
     private SeekbarWithIntervals seekbarRating;
-    private GridView gridView;
-    private ButtonAdapter buttonAdapter;
 
     protected int fee;
     protected int distance;
@@ -47,87 +36,93 @@ public class FilterFragment extends Fragment {
         seekbarRating = (SeekbarWithIntervals) view.findViewById(R.id.seekbarRating);
         seekbarRating.setIntervals(getRatingIntervals());
 
-        gridView = (GridView) view.findViewById(R.id.gridview);
-        buttonAdapter = new ButtonAdapter(getActivity());
-        gridView.setAdapter(buttonAdapter);
-        
-        Switch switchFeature = (Switch) view.findViewById(R.id.switch_Feature);
-        switchFeature.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        Switch switchBtnOpen = (Switch) view.findViewById(R.id.switch_OpenNow);
+        switchBtnOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                buttonAdapter.setAllButtonsPressed(isChecked);
-                buttonAdapter.notifyDataSetChanged();
+                if (isChecked) {
+                    // IF OPEN NOW BUTTON IS ON...
+                } else { // IF OPEN NOW BUTTON IS OFF...
+
+                }
+            }
+        });
+
+        // Feature program buttons
+        Button obamaCare = (Button) view.findViewById(R.id.obamaCare);
+        Button lowIncome = (Button) view.findViewById(R.id.lowIncome);
+        Button charityProgram = (Button) view.findViewById(R.id.charityProgram);
+        Button AAAProgram = (Button) view.findViewById(R.id.AAAProgram);
+        Button BBBProgram = (Button) view.findViewById(R.id.BBBProgram);
+        Button CCCProgram = (Button) view.findViewById(R.id.CCCProgram);
+        Button DDDProgram = (Button) view.findViewById(R.id.DDDProgram);
+        Button EEEProgram = (Button) view.findViewById(R.id.EEEProgram);
+        Button FFFProgram = (Button) view.findViewById(R.id.FFFProgram);
+
+        obamaCare.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // DO SOMETHING
+            }
+        });
+        lowIncome.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // DO SOMETHING
+            }
+        });
+        charityProgram.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // DO SOMETHING
+            }
+        });
+        AAAProgram.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // DO SOMETHING
+            }
+        });
+        BBBProgram.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // DO SOMETHING
+            }
+        });
+        CCCProgram.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // DO SOMETHING
+            }
+        });
+        DDDProgram.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // DO SOMETHING
+            }
+        });
+        EEEProgram.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // DO SOMETHING
+            }
+        });
+        FFFProgram.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // DO SOMETHING
             }
         });
         return view;
-    }
-
-    public class ButtonAdapter extends BaseAdapter {
-        private Integer[] mStringIds = {
-                R.string.obama_care, R.string.low_income,
-                R.string.charity_program, R.string.AAA_program,
-                R.string.BBB_program, R.string.CCC_program,
-                R.string.DDD_program, R.string.EEE_program,
-                R.string.FFF_program
-        };
-        
-        public boolean[] mSelected = {
-                false, false, false, false, false, false, false, false, false
-        };
-        
-        private Context mContext;
-
-        public ButtonAdapter(Context c) {
-            mContext = c;
-        }
-
-        public int getCount() {
-            return mStringIds.length;
-        }
-
-        public Object getItem(int position) {
-            return null;
-        }
-
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        public void setAllButtonsPressed (boolean pressed) {
-            for (int i = 0; i < mSelected.length; i++) {
-                mSelected[i] = pressed;
-            }
-        }
-        
-        // create a new ImageView for each item referenced by the Adapter
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            Button buttonItem;
-            if (convertView == null) {
-                // if it's not recycled, initialize some attributes
-                buttonItem = new Button(mContext);
-                buttonItem.setLayoutParams(new GridView.LayoutParams(LayoutParams.MATCH_PARENT,
-                        LayoutParams.MATCH_PARENT));
-                buttonItem.setTextSize(12f);
-                buttonItem.setClickable(false);
-            } else {
-                buttonItem = (Button) convertView;
-            }
-            buttonItem.setText(getResources().getString(mStringIds[position]));
-            buttonItem.setAlpha(mSelected[position] ? 1.0f : 0.5f);
-            buttonItem.setOnTouchListener(new OnTouchListener() {
-                
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_UP) {
-                        mSelected[position] = !mSelected[position];
-                        notifyDataSetChanged();
-                    }
-                    return true;
-                }
-            });
-            return buttonItem;
-        }
-
     }
 
     private ArrayList<String> getFeeIntervals() {
@@ -144,7 +139,7 @@ public class FilterFragment extends Fragment {
             }
         };
     }
-
+    
     private ArrayList<String> getDistanceIntervals() {
         return new ArrayList<String>() {
             private static final long serialVersionUID = 1L;
