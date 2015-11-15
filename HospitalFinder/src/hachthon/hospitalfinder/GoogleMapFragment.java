@@ -61,7 +61,7 @@ public class GoogleMapFragment extends Fragment implements
 
         CustomInfoWindowAdapter() {
             mContent = getActivity().getLayoutInflater().inflate(
-                    R.layout.custom_info_contents, null);
+                    R.layout.info_card, null);
         }
 
         @Override
@@ -76,22 +76,22 @@ public class GoogleMapFragment extends Fragment implements
         }
 
         private void render(Marker marker, View view) {
-            int badge;
-            if (marker.equals(SwedishPhysiciansMarker)) {
-                badge = R.drawable.badge_qld;
-            } else if (marker.equals(WomensHealthCareCenterMarker)) {
-                badge = R.drawable.badge_sa;
-            } else if (marker.equals(SwedishMedicalCenterMarker)) {
-                badge = R.drawable.badge_nsw;
-            } else if (marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
-                badge = R.drawable.badge_victoria;
-            } else if (marker.equals(ZOOMCareWallingfordMarker)) {
-                badge = R.drawable.badge_wa;
-            } else {
-                // Passing 0 to setImageResource will clear the image view.
-                badge = 0;
-            }
-            ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
+//            int badge;
+//            if (marker.equals(SwedishPhysiciansMarker)) {
+//                badge = R.drawable.badge_qld;
+//            } else if (marker.equals(WomensHealthCareCenterMarker)) {
+//                badge = R.drawable.badge_sa;
+//            } else if (marker.equals(SwedishMedicalCenterMarker)) {
+//                badge = R.drawable.badge_nsw;
+//            } else if (marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
+//                badge = R.drawable.badge_victoria;
+//            } else if (marker.equals(ZOOMCareWallingfordMarker)) {
+//                badge = R.drawable.badge_wa;
+//            } else {
+//                // Passing 0 to setImageResource will clear the image view.
+//                badge = 0;
+//            }
+//            ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
 
             String title = marker.getTitle();
             TextView titleUi = ((TextView) view.findViewById(R.id.title));
@@ -106,20 +106,93 @@ public class GoogleMapFragment extends Fragment implements
                 titleUi.setText("");
             }
 
-            String snippet = marker.getSnippet();
-            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
-            if (snippet != null && snippet.length() > 12) {
-                SpannableString snippetText = new SpannableString(snippet);
-                snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0,
-                        10, 0);
-                snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 12,
-                        snippet.length(), 0);
-                snippetUi.setText(snippetText);
+//            String snippet = marker.getSnippet();
+//            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+//            if (snippet != null && snippet.length() > 12) {
+//                SpannableString snippetText = new SpannableString(snippet);
+//                snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0,
+//                        10, 0);
+//                snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 12,
+//                        snippet.length(), 0);
+//                snippetUi.setText(snippetText);
+//            } else {
+//                snippetUi.setText("");
+//            }
+//            
+            String distance;
+            if(marker.equals(SwedishPhysiciansMarker)) {
+            		distance = "1.0";
+            } else if(marker.equals(WomensHealthCareCenterMarker)) {
+            		distance = "2.0";
+            } else if(marker.equals(SwedishMedicalCenterMarker)) {
+            		distance = "3.0";
+            } else if(marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
+            		distance = "4.0";
+            } else if(marker.equals(ZOOMCareWallingfordMarker)) {
+            		distance = "5.0";
             } else {
-                snippetUi.setText("");
+            		distance = "";
             }
+            ((TextView) view.findViewById(R.id.distance)).setText(distance);
+        
+        	String isOpen;
+            if(marker.equals(SwedishPhysiciansMarker)) {
+        		isOpen = "open";
+            } else if(marker.equals(WomensHealthCareCenterMarker)) {
+        		isOpen = "closed";
+            } else if(marker.equals(SwedishMedicalCenterMarker)) {
+        		isOpen = "open";
+            } else if(marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
+        		isOpen = "open";
+            } else if(marker.equals(ZOOMCareWallingfordMarker)) {
+        		isOpen = "closed";
+            } else {
+        		isOpen = "";
+            }
+            ((TextView) view.findViewById(R.id.openText)).setText(isOpen);
+            
+           	String stars;
+            if(marker.equals(SwedishPhysiciansMarker)) {
+        		stars = "4.9";
+            } else if(marker.equals(WomensHealthCareCenterMarker)) {
+        		stars = "9.6";
+            } else if(marker.equals(SwedishMedicalCenterMarker)) {
+        		stars = "8.2";
+            } else if(marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
+        		stars = "9.7";
+            } else if(marker.equals(ZOOMCareWallingfordMarker)) {
+        		stars = "6.8";
+            } else {
+        		stars = "";
+            }
+            ((TextView) view.findViewById(R.id.starText)).setText(stars);
+            
+           	String cost;
+            if(marker.equals(SwedishPhysiciansMarker)) {
+        		cost = "$300/hr";
+            } else if(marker.equals(WomensHealthCareCenterMarker)) {
+        		cost = "$100/hr";
+            } else if(marker.equals(SwedishMedicalCenterMarker)) {
+        		cost = "$200/hr";
+            } else if(marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
+        		cost = "$10/hr";
+            } else if(marker.equals(ZOOMCareWallingfordMarker)) {
+        		cost = "$150/hr";
+            } else {
+        		cost = "";
+            }
+            ((TextView) view.findViewById(R.id.dollarsText)).setText(cost);
+
+        	int starBadge = R.drawable.popup_star;
+        	((ImageView) view.findViewById(R.id.star)).setImageResource(starBadge);
+        	
+        	int dollarsBadge = R.drawable.popup_dollar;
+        	((ImageView) view.findViewById(R.id.dollars)).setImageResource(dollarsBadge);
+        	
+        	int openBadge = R.drawable.popup_open;
+        	((ImageView) view.findViewById(R.id.open)).setImageResource(openBadge);
+        	}
         }
-    }
 
     private GoogleMap mMap;
 
@@ -221,33 +294,28 @@ public class GoogleMapFragment extends Fragment implements
                 .position(SwedishPhysicians)
                 .title("Swedish Physicians")
                 .snippet("Details about it")
-                .icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospitalcross)));
         SwedishMedicalCenterMarker = mMap.addMarker(new MarkerOptions()
                 .position(SwedishMedicalCenter)
                 .title("Swedish Medical Center")
                 .snippet("Details about it")
-                .icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospitalcross)));
         UniversityOfWashingtonMedicalCenterMarker = mMap
                 .addMarker(new MarkerOptions()
                         .position(UniversityOfWashingtonMedicalCenter)
                         .title("University of Washington Medical Center")
                         .snippet("Details about it")
-                        .icon(BitmapDescriptorFactory
-                                .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospitalcross)));
         ZOOMCareWallingfordMarker = mMap.addMarker(new MarkerOptions()
                 .position(ZOOMCareWallingford)
                 .title("ZOOM Care Wallingford")
                 .snippet("Details about it")
-                .icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospitalcross)));
         WomensHealthCareCenterMarker = mMap.addMarker(new MarkerOptions()
                 .position(WomensHealthCareCenter)
                 .title("Women's Health Care Center")
                 .snippet("Details about it")
-                .icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospitalcross)));
     }
 
     private boolean checkReady() {
