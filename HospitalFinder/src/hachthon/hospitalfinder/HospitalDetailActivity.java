@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 public class HospitalDetailActivity extends FragmentActivity {
 
+	protected HospitalListInfo currentHospital;
     protected int ratingNumber;
     protected int reviewNumber;
     protected String nameHospital;
@@ -29,6 +30,11 @@ public class HospitalDetailActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hospitaldetail);
+        
+        Bundle bundle = this.getIntent().getExtras();
+        if(bundle!=null){
+        	currentHospital = MainActivity.getHospitalList().get(bundle.getInt("ARRAY_INDEX"));
+        }
 
         ImageView hospitalImage = (ImageView) findViewById(R.id.hospitalImage);
         // HOW DO I BRING THE IMAGE FILE FROM THE WEB LINK????
