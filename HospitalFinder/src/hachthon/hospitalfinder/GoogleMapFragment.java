@@ -55,10 +55,16 @@ public class GoogleMapFragment extends Fragment implements
             -122.318159);
     private static final LatLng ZOOMCareWallingford = new LatLng(47.661811,
             -122.342234);
-
+    
+    List<HospitalListInfo> hospitalList;
+    
+    public GoogleMapFragment(List<HospitalListInfo> hospitalList) {
+    	this.hospitalList = hospitalList;
+    }
+    
     class CustomInfoWindowAdapter implements InfoWindowAdapter {
         private final View mContent;
-
+   
         CustomInfoWindowAdapter() {
             mContent = getActivity().getLayoutInflater().inflate(
                     R.layout.info_card, null);
@@ -380,6 +386,21 @@ public class GoogleMapFragment extends Fragment implements
     @Override
     public void onInfoWindowClick(Marker marker) {
         Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        int index = 0;
+        if(marker.getTitle().equals("Swedish Physicians")) {
+        	index = 0;
+        } else if(marker.getTitle().equals("Swedish Medical Center")) {
+        	index = 1;
+        } else if(marker.getTitle().equals("University of Washington Medical Center")) {
+        	index = 2;
+        } else if(marker.getTitle().equals("ZOOM Care Wallingford")) {
+        	index = 3;
+        } else if(marker.getTitle().equals("Women's Health Care Center")) {
+        	index = 4;
+        }
+        bundle.putInt("ARRAY_INDEX", index);
+        intent.putExtras(bundle);
         intent.setClass(getActivity(), HospitalDetailActivity.class);
         getActivity().startActivity(intent);
     }
