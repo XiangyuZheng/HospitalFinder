@@ -42,31 +42,30 @@ public class CustomAdapter extends ArrayAdapter<HospitalListInfo> {
 	}
 
 	public View getView(int position, View view, ViewGroup parent) {
-
-		viewHolder = new ViewHolderItem();
-		LayoutInflater inflater = context.getLayoutInflater();
-		View rowView = inflater.inflate(R.layout.custom_listview, null, true);
-
-		viewHolder.textView = (TextView) rowView.findViewById(R.id.hospitalName);
-		viewHolder.imageView = (ImageView) rowView.findViewById(R.id.imageView1);		
-		viewHolder.ratingBar = (RatingBar) rowView.findViewById(R.id.ratingBar1);
-		viewHolder.review = (TextView) rowView.findViewById(R.id.rating);
-		viewHolder.distance = (TextView) rowView.findViewById(R.id.distance);
-		viewHolder.address = (TextView) rowView.findViewById(R.id.address);
-		viewHolder.price = (TextView) rowView.findViewById(R.id.price);
-		viewHolder.time = (TextView) rowView.findViewById(R.id.time);
-		viewHolder.textView.setText(list[position].getHospitalName());
-		Picasso.with(context)
-		   .load(list[position].getImage())
-		   .into(viewHolder.imageView);
+		if (view == null) {
+			viewHolder = new ViewHolderItem();
+			LayoutInflater inflater = context.getLayoutInflater();
+			view = inflater.inflate(R.layout.custom_listview, null, true);
+			viewHolder.textView = (TextView) view.findViewById(R.id.hospitalName);
+			viewHolder.imageView = (ImageView) view.findViewById(R.id.imageView1);
+			viewHolder.ratingBar = (RatingBar) view.findViewById(R.id.ratingBar1);
+			viewHolder.review = (TextView) view.findViewById(R.id.rating);
+			viewHolder.distance = (TextView) view.findViewById(R.id.distance);
+			viewHolder.address = (TextView) view.findViewById(R.id.address);
+			viewHolder.price = (TextView) view.findViewById(R.id.price);
+			viewHolder.time = (TextView) view.findViewById(R.id.time);
+			viewHolder.textView.setText(list[position].getHospitalName());
+			Picasso.with(context).load(list[position].getImage()).into(viewHolder.imageView);
+			view.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolderItem) view.getTag();
+		}
 		viewHolder.ratingBar.setNumStars(list[position].getRatingStar());
 		viewHolder.review.setText(list[position].getReview() + " Reviews");
 		viewHolder.distance.setText(list[position].getDistance() + "mi");
 		viewHolder.address.setText(list[position].getAddress());
 		viewHolder.price.setText("$" + list[position].getPrice());
 		viewHolder.time.setText(list[position].getTime() + "min");
-		return rowView;
-	};
-
-
+		return view;
+	}
 }
