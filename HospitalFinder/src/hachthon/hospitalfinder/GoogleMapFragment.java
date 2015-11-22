@@ -1,14 +1,24 @@
 
 package hachthon.hospitalfinder;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -17,8 +27,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -31,6 +43,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import hachthon.hospitalfinder.network.OnRESTCallbackListener;
+import hachthon.hospitalfinder.network.SimpleRESTGetter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +55,8 @@ import java.util.List;
  */
 @SuppressLint("InflateParams")
 public class GoogleMapFragment extends Fragment implements
-        OnMarkerClickListener, OnInfoWindowClickListener,
-        OnSeekBarChangeListener, OnMapReadyCallback {
+        OnMarkerClickListener, OnInfoWindowClickListener, OnMapReadyCallback, ConnectionCallbacks,
+        OnConnectionFailedListener, LocationListener, OnCameraChangeListener {
 
     // Some hospitals and their locations
     private static final LatLng SwedishPhysicians = new LatLng(47.681288,
@@ -55,16 +69,21 @@ public class GoogleMapFragment extends Fragment implements
             -122.318159);
     private static final LatLng ZOOMCareWallingford = new LatLng(47.661811,
             -122.342234);
-    
-    List<HospitalListInfo> hospitalList;
-    
+
+    private static boolean isFirstConnectedGoogleApiService = true;
+    private GoogleApiClient mGoogleApiClient;
+    private List<HospitalListInfo> hospitalList;
+    private long preHospitalUpdateTime;
+    private LatLng preHospitalUpdateLatLng;
+    private int preHospitalUpdateRadius;
+
     public GoogleMapFragment(List<HospitalListInfo> hospitalList) {
-    	this.hospitalList = hospitalList;
+        this.hospitalList = hospitalList;
     }
-    
+
     class CustomInfoWindowAdapter implements InfoWindowAdapter {
         private final View mContent;
-   
+
         CustomInfoWindowAdapter() {
             mContent = getActivity().getLayoutInflater().inflate(
                     R.layout.info_card, null);
@@ -82,22 +101,6 @@ public class GoogleMapFragment extends Fragment implements
         }
 
         private void render(Marker marker, View view) {
-//            int badge;
-//            if (marker.equals(SwedishPhysiciansMarker)) {
-//                badge = R.drawable.badge_qld;
-//            } else if (marker.equals(WomensHealthCareCenterMarker)) {
-//                badge = R.drawable.badge_sa;
-//            } else if (marker.equals(SwedishMedicalCenterMarker)) {
-//                badge = R.drawable.badge_nsw;
-//            } else if (marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
-//                badge = R.drawable.badge_victoria;
-//            } else if (marker.equals(ZOOMCareWallingfordMarker)) {
-//                badge = R.drawable.badge_wa;
-//            } else {
-//                // Passing 0 to setImageResource will clear the image view.
-//                badge = 0;
-//            }
-//            ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
 
             String title = marker.getTitle();
             TextView titleUi = ((TextView) view.findViewById(R.id.title));
@@ -112,93 +115,80 @@ public class GoogleMapFragment extends Fragment implements
                 titleUi.setText("");
             }
 
-//            String snippet = marker.getSnippet();
-//            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
-//            if (snippet != null && snippet.length() > 12) {
-//                SpannableString snippetText = new SpannableString(snippet);
-//                snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0,
-//                        10, 0);
-//                snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 12,
-//                        snippet.length(), 0);
-//                snippetUi.setText(snippetText);
-//            } else {
-//                snippetUi.setText("");
-//            }
-//            
             String distance;
-            if(marker.equals(SwedishPhysiciansMarker)) {
-            		distance = "1.0";
-            } else if(marker.equals(WomensHealthCareCenterMarker)) {
-            		distance = "2.0";
-            } else if(marker.equals(SwedishMedicalCenterMarker)) {
-            		distance = "3.0";
-            } else if(marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
-            		distance = "4.0";
-            } else if(marker.equals(ZOOMCareWallingfordMarker)) {
-            		distance = "5.0";
+            if (marker.equals(SwedishPhysiciansMarker)) {
+                distance = "1.0";
+            } else if (marker.equals(WomensHealthCareCenterMarker)) {
+                distance = "2.0";
+            } else if (marker.equals(SwedishMedicalCenterMarker)) {
+                distance = "3.0";
+            } else if (marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
+                distance = "4.0";
+            } else if (marker.equals(ZOOMCareWallingfordMarker)) {
+                distance = "5.0";
             } else {
-            		distance = "";
+                distance = "6.0";
             }
             ((TextView) view.findViewById(R.id.distance)).setText(distance);
-        
-        	String isOpen;
-            if(marker.equals(SwedishPhysiciansMarker)) {
-        		isOpen = "open";
-            } else if(marker.equals(WomensHealthCareCenterMarker)) {
-        		isOpen = "closed";
-            } else if(marker.equals(SwedishMedicalCenterMarker)) {
-        		isOpen = "open";
-            } else if(marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
-        		isOpen = "open";
-            } else if(marker.equals(ZOOMCareWallingfordMarker)) {
-        		isOpen = "closed";
+
+            String isOpen;
+            if (marker.equals(SwedishPhysiciansMarker)) {
+                isOpen = "open";
+            } else if (marker.equals(WomensHealthCareCenterMarker)) {
+                isOpen = "closed";
+            } else if (marker.equals(SwedishMedicalCenterMarker)) {
+                isOpen = "open";
+            } else if (marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
+                isOpen = "open";
+            } else if (marker.equals(ZOOMCareWallingfordMarker)) {
+                isOpen = "closed";
             } else {
-        		isOpen = "";
+                isOpen = "open";
             }
             ((TextView) view.findViewById(R.id.openText)).setText(isOpen);
-            
-           	String stars;
-            if(marker.equals(SwedishPhysiciansMarker)) {
-        		stars = "4.9";
-            } else if(marker.equals(WomensHealthCareCenterMarker)) {
-        		stars = "9.6";
-            } else if(marker.equals(SwedishMedicalCenterMarker)) {
-        		stars = "8.2";
-            } else if(marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
-        		stars = "9.7";
-            } else if(marker.equals(ZOOMCareWallingfordMarker)) {
-        		stars = "6.8";
+
+            String stars;
+            if (marker.equals(SwedishPhysiciansMarker)) {
+                stars = "4.9";
+            } else if (marker.equals(WomensHealthCareCenterMarker)) {
+                stars = "9.6";
+            } else if (marker.equals(SwedishMedicalCenterMarker)) {
+                stars = "8.2";
+            } else if (marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
+                stars = "9.7";
+            } else if (marker.equals(ZOOMCareWallingfordMarker)) {
+                stars = "6.8";
             } else {
-        		stars = "";
+                stars = "5.5";
             }
             ((TextView) view.findViewById(R.id.starText)).setText(stars);
-            
-           	String cost;
-            if(marker.equals(SwedishPhysiciansMarker)) {
-        		cost = "$300/hr";
-            } else if(marker.equals(WomensHealthCareCenterMarker)) {
-        		cost = "$100/hr";
-            } else if(marker.equals(SwedishMedicalCenterMarker)) {
-        		cost = "$200/hr";
-            } else if(marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
-        		cost = "$10/hr";
-            } else if(marker.equals(ZOOMCareWallingfordMarker)) {
-        		cost = "$150/hr";
+
+            String cost;
+            if (marker.equals(SwedishPhysiciansMarker)) {
+                cost = "$300/hr";
+            } else if (marker.equals(WomensHealthCareCenterMarker)) {
+                cost = "$100/hr";
+            } else if (marker.equals(SwedishMedicalCenterMarker)) {
+                cost = "$200/hr";
+            } else if (marker.equals(UniversityOfWashingtonMedicalCenterMarker)) {
+                cost = "$10/hr";
+            } else if (marker.equals(ZOOMCareWallingfordMarker)) {
+                cost = "$150/hr";
             } else {
-        		cost = "";
+                cost = "$55/hr";
             }
             ((TextView) view.findViewById(R.id.dollarsText)).setText(cost);
 
-        	int starBadge = R.drawable.popup_star;
-        	((ImageView) view.findViewById(R.id.star)).setImageResource(starBadge);
-        	
-        	int dollarsBadge = R.drawable.popup_dollar;
-        	((ImageView) view.findViewById(R.id.dollars)).setImageResource(dollarsBadge);
-        	
-        	int openBadge = R.drawable.popup_open;
-        	((ImageView) view.findViewById(R.id.open)).setImageResource(openBadge);
-        	}
+            int starBadge = R.drawable.popup_star;
+            ((ImageView) view.findViewById(R.id.star)).setImageResource(starBadge);
+
+            int dollarsBadge = R.drawable.popup_dollar;
+            ((ImageView) view.findViewById(R.id.dollars)).setImageResource(dollarsBadge);
+
+            int openBadge = R.drawable.popup_open;
+            ((ImageView) view.findViewById(R.id.open)).setImageResource(openBadge);
         }
+    }
 
     private GoogleMap mMap;
 
@@ -211,6 +201,28 @@ public class GoogleMapFragment extends Fragment implements
     private final List<Marker> mMarkerRainbow = new ArrayList<Marker>();
 
     private static View view;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mGoogleApiClient.disconnect();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -239,11 +251,11 @@ public class GoogleMapFragment extends Fragment implements
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
+        mMap.setMyLocationEnabled(true);
+        mMap.setOnCameraChangeListener(this);
+
         // Hide the zoom controls as the button panel will cover it.
         mMap.getUiSettings().setZoomControlsEnabled(false);
-
-        // Add lots of markers to the map.
-        addMarkersToMap();
 
         // Setting an info window adapter allows us to change the both the
         // contents and look of the
@@ -295,79 +307,6 @@ public class GoogleMapFragment extends Fragment implements
         }
     }
 
-    private void addMarkersToMap() {
-        SwedishPhysiciansMarker = mMap.addMarker(new MarkerOptions()
-                .position(SwedishPhysicians)
-                .title("Swedish Physicians")
-                .snippet("Details about it")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospitalcross)));
-        SwedishMedicalCenterMarker = mMap.addMarker(new MarkerOptions()
-                .position(SwedishMedicalCenter)
-                .title("Swedish Medical Center")
-                .snippet("Details about it")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospitalcross)));
-        UniversityOfWashingtonMedicalCenterMarker = mMap
-                .addMarker(new MarkerOptions()
-                        .position(UniversityOfWashingtonMedicalCenter)
-                        .title("University of Washington Medical Center")
-                        .snippet("Details about it")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospitalcross)));
-        ZOOMCareWallingfordMarker = mMap.addMarker(new MarkerOptions()
-                .position(ZOOMCareWallingford)
-                .title("ZOOM Care Wallingford")
-                .snippet("Details about it")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospitalcross)));
-        WomensHealthCareCenterMarker = mMap.addMarker(new MarkerOptions()
-                .position(WomensHealthCareCenter)
-                .title("Women's Health Care Center")
-                .snippet("Details about it")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospitalcross)));
-    }
-
-    private boolean checkReady() {
-        return true;
-    }
-
-    /** Called when the Clear button is clicked. */
-    public void onClearMap(View view) {
-        if (!checkReady()) {
-            return;
-        }
-        mMap.clear();
-    }
-
-    /** Called when the Reset button is clicked. */
-    public void onResetMap(View view) {
-        if (!checkReady()) {
-            return;
-        }
-        // Clear the map because we don't want duplicates of the markers.
-        mMap.clear();
-        addMarkersToMap();
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress,
-            boolean fromUser) {
-        if (!checkReady()) {
-            return;
-        }
-        float rotation = seekBar.getProgress();
-        for (Marker marker : mMarkerRainbow) {
-            marker.setRotation(rotation);
-        }
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-        // Do nothing.
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-        // Do nothing.
-    }
-
     //
     // Marker related listeners.
     //
@@ -388,16 +327,16 @@ public class GoogleMapFragment extends Fragment implements
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         int index = 0;
-        if(marker.getTitle().equals("Swedish Physicians")) {
-        	index = 0;
-        } else if(marker.getTitle().equals("Swedish Medical Center")) {
-        	index = 1;
-        } else if(marker.getTitle().equals("University of Washington Medical Center")) {
-        	index = 2;
-        } else if(marker.getTitle().equals("ZOOM Care Wallingford")) {
-        	index = 3;
-        } else if(marker.getTitle().equals("Women's Health Care Center")) {
-        	index = 4;
+        if (marker.getTitle().equals("Swedish Physicians")) {
+            index = 0;
+        } else if (marker.getTitle().equals("Swedish Medical Center")) {
+            index = 1;
+        } else if (marker.getTitle().equals("University of Washington Medical Center")) {
+            index = 2;
+        } else if (marker.getTitle().equals("ZOOM Care Wallingford")) {
+            index = 3;
+        } else if (marker.getTitle().equals("Women's Health Care Center")) {
+            index = 4;
         }
         bundle.putInt("ARRAY_INDEX", index);
         intent.putExtras(bundle);
@@ -405,4 +344,96 @@ public class GoogleMapFragment extends Fragment implements
         getActivity().startActivity(intent);
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 12);
+        mMap.animateCamera(cameraUpdate);
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        updateHospitalsWithinCircle(location.getLatitude(), location.getLongitude(), 10000);
+    }
+
+    Handler handle = new Handler();
+
+    void updateHospitalsWithinCircle(double lat, double lng, int radius) {
+        String url = "https://data.medicare.gov/resource/ppaw-hhm5.json?"
+                + "$select=hospital_name,location,location_address&"
+                + "$where=within_circle(location," + lat
+                + "," + lng
+                + "," + radius
+                + ")&$group=hospital_name,location,location_address";
+
+        SimpleRESTGetter.queryHospitalInfo(url, new OnRESTCallbackListener() {
+
+            @Override
+            public void onSuccess(final List<HospitalListInfo> hospitalList) {
+                handle.post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        for (HospitalListInfo h : hospitalList) {
+                            addHospitalMarkerToMap(h);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    void addHospitalMarkerToMap(HospitalListInfo hospital) {
+        if (mMap != null) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(hospital.getLatitude(), hospital.getLongitude()))
+                    .title(hospital.getHospitalName())
+                    .snippet("Details about it")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospitalcross)));
+        }
+    }
+
+    // These settings are the same as the settings for the map. They will in fact give you updates
+    // at the maximal rates currently possible.
+    private static final LocationRequest REQUEST = LocationRequest.create()
+            .setInterval(60000) // 1 minute
+            .setFastestInterval(16) // 16ms = 60fps
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+    @Override
+    public void onConnected(Bundle arg0) {
+        if (isFirstConnectedGoogleApiService) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient,
+                    REQUEST,
+                    this); // LocationListener
+            isFirstConnectedGoogleApiService = false;
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int arg0) {
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult arg0) {
+    }
+
+    @Override
+    public void onCameraChange(CameraPosition position) {
+        float[] result = new float[1];
+        if (preHospitalUpdateLatLng != null) {
+            Location.distanceBetween(preHospitalUpdateLatLng.latitude,
+                    preHospitalUpdateLatLng.longitude, position.target.latitude,
+                    position.target.longitude, result);
+        }
+        if (preHospitalUpdateLatLng == null
+                || (result[0] > preHospitalUpdateRadius && System.currentTimeMillis() - 5000 > preHospitalUpdateTime)) {
+            double lat = position.target.latitude;
+            double lng = position.target.longitude;
+            float zoom = position.zoom;
+            int radius = (int) (10000 * Math.pow(2, 12 - zoom));
+            updateHospitalsWithinCircle(lat, lng, radius);
+            preHospitalUpdateLatLng = position.target;
+            preHospitalUpdateRadius = radius;
+            preHospitalUpdateTime = System.currentTimeMillis();
+        }
+    }
 }

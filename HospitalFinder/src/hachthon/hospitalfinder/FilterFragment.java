@@ -22,7 +22,6 @@ public class FilterFragment extends Fragment {
     protected int fee;
     protected int distance;
     protected int rating;
-    int i;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

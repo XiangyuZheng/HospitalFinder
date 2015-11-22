@@ -1,7 +1,7 @@
 
 package hachthon.hospitalfinder.network;
 
-import hachthon.hospitalfinder.HospitalListInfo;
+import hachthon.hospitalfinder.util.JsonHospitalParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,9 +31,8 @@ public class SimpleRESTGetter {
                     while ((line = rd.readLine()) != null) {
                         sb.append(line);
                     }
-                    HospitalListInfo hospital = null;
-                    // TODO: construct hospital object using data in response.
-                    listener.onSuccess(hospital);
+                    // constructs hospital info list using data in response.
+                    listener.onSuccess(JsonHospitalParser.parseJsonToHospitalList(sb.toString()));
                 } catch (ClientProtocolException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
