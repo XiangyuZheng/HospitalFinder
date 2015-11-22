@@ -1,0 +1,8 @@
+include 'app'
+include 'TabIndicatorLib'
+include 'GooglePlayServices'
+
+project(':TabIndicatorLib').projectDir = new File('../library')
+
+// change the project path below
+project(':GooglePlayServices').projectDir = new File('/path/to/your/google-play-services')

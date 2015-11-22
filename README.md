@@ -11,10 +11,11 @@
 It's an open source project for implementing tabs.
 See details in https://github.com/JakeWharton/ViewPagerIndicator
 
+## How to build the project using Gradle
+1. Put build.gradle into the folder of your Google-Play-Services lib project
+2. Change the path of your Google-Play-Services lib project in HospitalFinder/settings.gradle
+3. Go to HospitalFinder/ folder and run command 'gradle build'
 
+## How to import the project into Android Studio
+Import the projects as Gradle projects.
 
-
-msg1
-
-
-msg2
